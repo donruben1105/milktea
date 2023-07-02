@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\ProductsController;
+use App\Http\Controllers\Api\V1\TemplateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,8 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('v1')->group(function () {
-Route::apiResource('/items', ProductsController::class);
-Route::apiResource('/addtocart', ProductsController::class);
+    Route::apiResource('/items', ProductsController::class);
+    Route::apiResource('/addtocart', ProductsController::class);
+    Route::apiResource('/template', TemplateController::class);
 });
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
