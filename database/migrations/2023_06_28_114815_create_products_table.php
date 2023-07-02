@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('price');
+            $table->string('description');
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
