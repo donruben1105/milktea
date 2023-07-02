@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
+    public function index()
+    {
+        $product = Products::latest()->paginate(5);
+
+        return response()->json($product);
+    }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -25,9 +32,10 @@ class ProductsController extends Controller
             'message' => 'Successfully stored',
             'data' => $product,
         ]);
-        }
+    }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
 
         // Validate the incoming request data
         $validatedData = $request->validate([
@@ -45,10 +53,10 @@ class ProductsController extends Controller
         //save the updated product 
         $product->save();
 
-       
+
 
         return response()->json([
-            'status' => 'success', 
+            'status' => 'success',
             'message' => 'updated successfully',
             'data' => $product,
         ]);
@@ -56,24 +64,23 @@ class ProductsController extends Controller
 
     public function destroy($id)
     {
-    // Find the product by ID
-    $product = Products::findOrFail($id);
+        // Find the product by ID
+        $product = Products::findOrFail($id);
 
-    // Delete the product
-    $product->delete();
+        // Delete the product
+        $product->delete();
 
-    return response()->json([
-        'status' => 'success', 
-        'message' => 'deleted successfully',
-        'data' => $product,
-    ]);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'deleted successfully',
+            'data' => $product,
+        ]);
     }
 
-public function addToCart(Request $request, $id) 
+    public function addToCart(Request $request, $id)
     {
 
-        if(Auth::id()) 
-        {
+        if (Auth::id()) {
             $user = auth()->user();
             $product = Products::find($id);
             $cart = new Cart;
@@ -89,12 +96,8 @@ public function addToCart(Request $request, $id)
             $cart->save();
 
             return redirect()->back()->with('message', 'Product Added Succesfully');
-        }
-        else 
-        {
+        } else {
             return redirect('login');
         }
-
-    
     }
 }
