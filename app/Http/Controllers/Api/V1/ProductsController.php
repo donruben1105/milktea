@@ -15,7 +15,8 @@ class ProductsController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string',
-            'price' => 'required|numeric',
+            'price' => 'required|integer',
+            'description' => 'required|string'
         ]);
 
         $product = Products::create($validatedData);
@@ -32,7 +33,8 @@ class ProductsController extends Controller
         // Validate the incoming request data
         $validatedData = $request->validate([
             'name' => 'required|string',
-            'price' => 'required|numeric'
+            'price' => 'required|integer',
+            'description' => 'required|string'
         ]);
 
         // Find the product by ID
@@ -41,6 +43,7 @@ class ProductsController extends Controller
         //update the product
         $product->name = $validatedData['name'];
         $product->price = $validatedData['price'];
+        $product->description = $validatedData['description'];
 
         //save the updated product 
         $product->save();
