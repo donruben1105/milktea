@@ -11,6 +11,13 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductsController extends Controller
 {
+    public function index()
+    {
+        $product = Products::latest()->paginate(5);
+
+        return response()->json($product);
+    }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
